@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-const ifSteam string = "http://api.steampowered.com/ISteamNews"
+const ifSteam string = "http://api.steampowered.com"
 
 //GetNewsForApp returns the latest of a game specified by its appID.
 func GetNewsForApp(appID int, count int, maxlength int, format string) (data string) {
@@ -17,6 +17,5 @@ func GetNewsForApp(appID int, count int, maxlength int, format string) (data str
 	q.Set("maxlength", strconv.Itoa(maxlength))
 	q.Set("format", format)
 	u.RawQuery = q.Encode()
-	return Navigate(u.String())
-
+	return NavigateToString(u.String())
 }
