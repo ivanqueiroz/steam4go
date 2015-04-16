@@ -7,6 +7,24 @@ import (
 
 const ifSteam string = "http://api.steampowered.com"
 
+//Appnews type represent return of appnews
+type Appnews struct {
+	AppNews struct {
+		AppID     float64 `json:"appid"`
+		NewsItems []struct {
+			Author        string  `json:"author"`
+			Contents      string  `json:"contents"`
+			Date          float64 `json:"date"`
+			FeedLabel     string  `json:"feedlabel"`
+			FeedName      string  `json:"feedname"`
+			Gid           string  `json:"gid"`
+			IsExternalURL bool    `json:"is_external_url"`
+			Title         string  `json:"title"`
+			URL           string  `json:"url"`
+		} `json:"newsitems"`
+	} `json:"appnews"`
+}
+
 //GetNewsForApp returns the latest of a game specified by its appID.
 func GetNewsForApp(appID int, count int, maxlength int, format string) (data string) {
 	u, _ := url.Parse(ifSteam)
@@ -17,5 +35,5 @@ func GetNewsForApp(appID int, count int, maxlength int, format string) (data str
 	q.Set("maxlength", strconv.Itoa(maxlength))
 	q.Set("format", format)
 	u.RawQuery = q.Encode()
-	return NavigateToString(u.String())
+	return navigateToString(u.String())
 }

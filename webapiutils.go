@@ -33,7 +33,7 @@ func GetSupportedAPIListObj() (data APIList) {
 	u, _ := url.Parse(ifSteam)
 	u.Path = "/ISteamWebAPIUtil/GetSupportedAPIList/v0001/"
 	var apiList APIList
-	jsonSrc := NavigateToByte(u.String())
+	jsonSrc := navigateToByte(u.String())
 	json.Unmarshal(jsonSrc, &apiList)
 	return apiList
 }
@@ -42,11 +42,10 @@ func GetSupportedAPIListObj() (data APIList) {
 func GetSupportedAPIListStr() (data string) {
 	u, _ := url.Parse(ifSteam)
 	u.Path = "/ISteamWebAPIUtil/GetSupportedAPIList/v0001/"
-	return NavigateToString(u.String())
+	return navigateToString(u.String())
 }
 
-//NavigateToString to url returns String
-func NavigateToString(address string) (response string) {
+func navigateToString(address string) (response string) {
 	_, err := url.Parse(address)
 	perror(err)
 
@@ -58,8 +57,7 @@ func NavigateToString(address string) (response string) {
 	return string(body)
 }
 
-//NavigateToByte to url returns []byte
-func NavigateToByte(address string) (response []byte) {
+func navigateToByte(address string) (response []byte) {
 	_, err := url.Parse(address)
 	perror(err)
 
