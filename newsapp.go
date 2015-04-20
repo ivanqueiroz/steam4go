@@ -1,6 +1,7 @@
 package steam4go
 
 import (
+	"encoding/json"
 	"net/url"
 	"strconv"
 )
@@ -26,14 +27,17 @@ type Appnews struct {
 }
 
 //GetNewsForApp returns the latest of a game specified by its appID.
-func GetNewsForApp(appID int, count int, maxlength int, format string) (data string) {
+func GetNewsForApp(appID float64, count int, maxlength int) (data Appnews) {
 	u, _ := url.Parse(ifSteam)
 	u.Path = "/ISteamNews/GetNewsForApp/v0002/"
 	q := u.Query()
-	q.Set("appid", strconv.Itoa(appID))
+	q.Set("appid", strconv.FormatFloat(appID, 'f', 2, 64))
 	q.Set("count", strconv.Itoa(count))
 	q.Set("maxlength", strconv.Itoa(maxlength))
-	q.Set("format", format)
+	q.Set("format", "json")
 	u.RawQuery = q.Encode()
-	return navigateToString(u.String())
+	var news Appnews
+	jsonSrc := navigateToByte(u.String())
+	json.Unmarshal(jsonSrc, &news)
+	return news
 }

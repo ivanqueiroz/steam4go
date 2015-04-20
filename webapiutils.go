@@ -28,8 +28,8 @@ func perror(err error) {
 	}
 }
 
-//GetSupportedAPIListObj returns allc interfaces and method .
-func GetSupportedAPIListObj() (data APIList) {
+//GetSupportedAPIListStruct returns all interfaces and method .
+func GetSupportedAPIList() (data APIList) {
 	u, _ := url.Parse(ifSteam)
 	u.Path = "/ISteamWebAPIUtil/GetSupportedAPIList/v0001/"
 	var apiList APIList
@@ -38,7 +38,7 @@ func GetSupportedAPIListObj() (data APIList) {
 	return apiList
 }
 
-//GetSupportedAPIListStr returns allc interfaces and method .
+//GetSupportedAPIListStr returns all interfaces and method as string .
 func GetSupportedAPIListStr() (data string) {
 	u, _ := url.Parse(ifSteam)
 	u.Path = "/ISteamWebAPIUtil/GetSupportedAPIList/v0001/"
